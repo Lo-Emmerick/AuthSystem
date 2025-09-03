@@ -25,7 +25,6 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebasebom"}
 firebase-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseauth"}
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
