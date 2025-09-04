@@ -8,6 +8,10 @@ android {
     namespace = "com.example.authsystem"
     compileSdk = 36
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.example.authsystem"
         minSdk = 24
@@ -37,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.androidx.core.ktx)

@@ -12,6 +12,7 @@ constraintlayout = "2.2.1"
 google-services = "4.4.3"
 firebasebom = "34.2.0"
 firebaseauth = "9.0.0"
+koin = "3.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +25,7 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebasebom"}
 firebase-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseauth"}
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
