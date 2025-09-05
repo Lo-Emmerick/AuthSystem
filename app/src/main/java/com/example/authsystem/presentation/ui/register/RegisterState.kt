@@ -1,7 +1,10 @@
 package com.example.authsystem.presentation.ui.register
 
+import com.example.authsystem.domain.data.User
+
 interface RegisterState {
-    object Success : RegisterState
+    data class Success(val user: User) : RegisterState
     object Loading : RegisterState
     object Empty : RegisterState
-    object Error : RegisterState}
+    data class Error(val message: String) : RegisterState
+}
