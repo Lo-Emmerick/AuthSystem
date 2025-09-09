@@ -22,11 +22,11 @@ class RegisterViewModel(
                     _state.value = RegisterState.Success(user)
                 } else {
                     _state.value = RegisterState.Error(
-                        response.exceptionOrNull()?.message ?: "Não foi possível concluir o cadastro. Tente novamente mais tarde."
+                        response.exceptionOrNull()?.message ?: "Error"
                     )
                 }
             } catch (e: Exception) {
-                _state.value = RegisterState.Error("Não foi possível concluir o cadastro. Tente novamente mais tarde.")
+                _state.value = RegisterState.Error("Error")
             }
         }
     }

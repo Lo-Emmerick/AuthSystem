@@ -27,9 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="64dp"
-        android:hint="Nome"
+        app:hintAnimationEnabled="true"
         app:boxBackgroundColor="@color/background_input"
         app:endIconMode="custom"
+        app:errorEnabled="false"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="16dp"
         app:boxCornerRadiusBottomStart="16dp"
@@ -44,6 +45,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Nome"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,8 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="10dp"
-        android:hint="Email/Número de Telefone"
         app:endIconMode="custom"
+        app:errorEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/background_input"
@@ -70,6 +72,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Email"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,9 +82,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="10dp"
-        android:hint="Senha"
         app:endIconDrawable="@drawable/visibility_off"
         app:endIconMode="custom"
+        app:errorEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:boxBackgroundColor="@color/background_input"
@@ -97,6 +100,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Senha"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,6 +137,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Entrar"
+        android:textSize="14dp"
+        android:textColor="#3461FD"
+        app:layout_constraintStart_toEndOf="@+id/question"
+        app:layout_constraintTop_toBottomOf="@+id/textButton" />
+
+    <include
+        android:id="@+id/state_loading"
+        layout="@layout/loadin_register"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/loadin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Cadastrar"
         android:textSize="14dp"
         android:textColor="#3461FD"
         app:layout_constraintStart_toEndOf="@+id/question"
