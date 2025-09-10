@@ -2,8 +2,8 @@ package com.example.authsystem.presentation.ui.register
 
 import com.example.authsystem.domain.data.User
 
-interface RegisterState {
-    data class Success(val user: User) : RegisterState
-    object Loading : RegisterState
-    data class Error(val message: String) : RegisterState
+sealed class RegisterState {
+    object Loading : RegisterState()
+    data class Success(val user: User) : RegisterState()
+    data class Error(val field: String, val message: String) : RegisterState()
 }

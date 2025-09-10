@@ -3,7 +3,6 @@ package com.example.authsystem.presentation.ui.register
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,13 +23,12 @@ class RegisterActivity : AppCompatActivity() {
         binding = RegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        bindObserver()
         bindListener()
+        bindObserver()
     }
 
     private fun bindListener() {
         binding.textButton.setOnClickListener {
-
             val name = binding.name.editText?.text.toString()
             val email = binding.email.editText?.text.toString()
             val password = binding.password.editText?.text.toString()
@@ -41,10 +39,10 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.password.setEndIconOnClickListener {
             val editText = binding.password.editText
-
             editText?.let {
                 if (it.inputType and InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ==
-                    InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                ) {
                     it.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                     binding.password.endIconDrawable = getDrawable(R.drawable.visibility_off)
                 } else {
@@ -55,10 +53,10 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-       binding.loadin.setOnClickListener {
+        binding.loadin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-       }
+        }
     }
 
     private fun bindObserver() {
@@ -66,65 +64,92 @@ class RegisterActivity : AppCompatActivity() {
             setDefaultState()
             when (it) {
                 RegisterState.Loading -> showLoadingScreen()
+                is RegisterState.Success -> showSuccessScreen()
                 is RegisterState.Error -> {
-                    when (it.message) {
-                        "NameEmpty" -> {showErrorNameEmptyScreen()}
-                        "EmailEmpty" -> {showErrorEmailEmptyScreen()}
-                        "PasswordEmpty" -> {showErrorPasswordEmptyScreen()}
-                        "EmailInvalid" -> {showErrorEmailScreen()}
-                        "PasswordInvalid" -> {showErrorPasswordScreen()}
-                        "PasswordInvalid" -> {showErrorPasswordScreen()}
-
-                        else -> {
-                            Toast.makeText(
-                                this@RegisterActivity,
-                                "Erro ao concluir o cadastro. Tente novamente mais tarde",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    when (it.field) {
+                        "NameEmpty" -> showErrorNameEmptyScreen(it.message)
+                        "EmailEmpty" -> showErrorEmailEmptyScreen(it.message)
+                        "PasswordEmpty" -> showErrorPasswordEmptyScreen(it.message)
+                        "EmailInvalid" -> showErrorEmailScreen(it.message)
+                        "PasswordInvalid" -> showErrorPasswordScreen(it.message)
+                        "EmailAlreadyExists" -> showErrorEmailAlreadyExists(it.message)
+                        else -> showErrorGeneral(it.message)
                     }
                 }
-
-                is RegisterState.Success -> showSuccessScreen()
             }
         }
     }
 
     private fun setDefaultState() {
         binding.name.error = null
-        binding.loadin.isVisible = false
+        binding.email.error = null
+        binding.password.error = null
+        binding.stateLoading.root.isVisible = false
         binding.name.isErrorEnabled = false
         binding.email.isErrorEnabled = false
         binding.password.isErrorEnabled = false
+        binding.formContainer.isVisible = false
     }
 
     private fun showLoadingScreen() {
-        binding.loadin.isVisible = true
+        binding.formContainer.isVisible = false
+        binding.stateLoading.root.isVisible = true
     }
 
-    private fun showErrorNameEmptyScreen() {
-        binding.password.isErrorEnabled = true
-        binding.name.error = "Nome não pode ficar vazio"
+    private fun showErrorNameEmptyScreen(message: String) {
+        binding.formContainer.isVisible = true
+        binding.name.isErrorEnabled = true
+        binding.name.error = message
     }
 
-    private fun showErrorEmailEmptyScreen() {
-        binding.password.isErrorEnabled = true
-        binding.email.error = "Email não pode ficar vazio"
+    private fun showErrorEmailEmptyScreen(message: String) {
+        binding.formContainer.isVisible = true
+        binding.email.isErrorEnabled = true
+        binding.email.error = message
     }
 
-    private fun showErrorPasswordEmptyScreen() {
+    private fun showErrorPasswordEmptyScreen(message: String) {
+        binding.formContainer.isVisible = true
         binding.password.isErrorEnabled = true
-        binding.password.error = "Senha não pode ficar vazio"
+        binding.password.error = message
     }
 
-    private fun showErrorEmailScreen() {
-        binding.password.isErrorEnabled = true
-        binding.email.error = "Digite um email válido"
+    private fun showErrorEmailScreen(message: String) {
+        binding.formContainer.isVisible = true
+        binding.email.isErrorEnabled = true
+        binding.email.error = message
     }
 
-    private fun showErrorPasswordScreen() {
+    private fun showErrorPasswordScreen(message: String) {
+        binding.formContainer.isVisible = true
         binding.password.isErrorEnabled = true
-        binding.password.error = "Mínimo 6 caracteres"
+        binding.password.error = message
+    }
+
+    private fun showErrorEmailAlreadyExists(message: String) {
+        binding.formContainer.isVisible = true
+        binding.email.isErrorEnabled = true
+        binding.email.error = message
+
+        Toast.makeText(
+            this@RegisterActivity,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun showErrorGeneral(message: String) {
+        binding.formContainer.isVisible = true
+        binding.email.isErrorEnabled = true
+        binding.email.error = message
+        binding.name.isErrorEnabled = true
+        binding.password.isErrorEnabled = true
+
+        Toast.makeText(
+            this@RegisterActivity,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun showSuccessScreen() {
